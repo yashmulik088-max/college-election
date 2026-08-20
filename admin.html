@@ -2,45 +2,68 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Admin Election Results</title>
 
-    <title>Election Admin Results</title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
 <div class="container">
 
     <header>
-
-        <h1>🔐 Election Results</h1>
-
-        <p>Developer / Admin Panel</p>
-
+        <h1>🔐 Admin Panel</h1>
+        <p>College Election 2026</p>
     </header>
 
 
-    <section class="card">
+    <!-- PIN LOGIN -->
+    <section id="pinSection" class="card">
 
-        <h2>Vote Results</h2>
+        <h2>Admin Security</h2>
+
+        <p style="text-align:center;">
+            Enter Security PIN to open election results
+        </p>
+
+        <input
+            type="password"
+            id="securityPin"
+            placeholder="Enter Security PIN"
+            maxlength="6"
+        >
+
+        <button onclick="checkPin()">
+            🔓 Open Admin Panel
+        </button>
+
+        <p id="pinMessage"
+           style="text-align:center; margin-top:15px;">
+        </p>
+
+    </section>
+
+
+    <!-- ADMIN RESULTS -->
+    <section id="adminSection" class="card hidden">
+
+        <h2>📊 Election Results</h2>
 
         <div id="results"></div>
 
+        <button onclick="refreshResults()">
+            🔄 Refresh Results
+        </button>
+
         <button onclick="clearVotes()">
-            Reset Election Data
+            🗑️ Reset Election Data
+        </button>
+
+        <button onclick="logout()">
+            🚪 Logout
         </button>
 
     </section>
@@ -49,6 +72,60 @@
 
 
 <script>
+
+// ================================
+// ADMIN SECURITY PIN
+// ================================
+
+// Change this PIN for your project
+const ADMIN_PIN = "123456";
+
+
+// ================================
+// CHECK PIN
+// ================================
+
+function checkPin() {
+
+    const enteredPin =
+        document.getElementById("securityPin").value;
+
+    const message =
+        document.getElementById("pinMessage");
+
+
+    if (enteredPin === ADMIN_PIN) {
+
+        // Hide PIN screen
+        document.getElementById(
+            "pinSection"
+        ).classList.add("hidden");
+
+
+        // Show admin panel
+        document.getElementById(
+            "adminSection"
+        ).classList.remove("hidden");
+
+
+        message.innerText = "";
+
+        displayResults();
+
+    } else {
+
+        message.style.color = "red";
+
+        message.innerText =
+            "❌ Incorrect Security PIN";
+
+    }
+}
+
+
+// ================================
+// DISPLAY RESULTS
+// ================================
 
 function displayResults() {
 
@@ -65,8 +142,11 @@ function displayResults() {
 
     let totalVotes = 0;
 
+
     Object.values(votes).forEach(
-        vote => totalVotes += vote
+        vote => {
+            totalVotes += vote;
+        }
     );
 
 
@@ -84,7 +164,9 @@ function displayResults() {
 
                     <p>
                         Votes:
-                        <strong>${votes[candidate]}</strong>
+                        <strong>
+                            ${votes[candidate]}
+                        </strong>
                     </p>
 
                 </div>
@@ -95,7 +177,7 @@ function displayResults() {
 
 
     html += `
-        <h3 style="text-align:center">
+        <h3 style="text-align:center; margin-top:20px;">
             Total Votes: ${totalVotes}
         </h3>
     `;
@@ -107,11 +189,26 @@ function displayResults() {
 }
 
 
+// ================================
+// REFRESH RESULTS
+// ================================
+
+function refreshResults() {
+
+    displayResults();
+
+}
+
+
+// ================================
+// RESET VOTES
+// ================================
+
 function clearVotes() {
 
     const confirmReset =
         confirm(
-            "Are you sure you want to reset all votes?"
+            "Are you sure you want to reset all election data?"
         );
 
 
@@ -125,7 +222,9 @@ function clearVotes() {
             "votedStudents"
         );
 
+
         displayResults();
+
 
         alert(
             "Election data has been reset."
@@ -134,10 +233,28 @@ function clearVotes() {
 }
 
 
-displayResults();
+// ================================
+// LOGOUT
+// ================================
 
+function logout() {
+
+    document.getElementById(
+        "adminSection"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "pinSection"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "securityPin"
+    ).value = "";
+
+}
 </script>
 
 </body>
-
 </html>
