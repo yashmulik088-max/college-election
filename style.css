@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    min-height: 100vh;
+    color: #222;
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+header {
+    text-align: center;
+    background: #173b7a;
+    color: white;
+    padding: 25px;
+    border-radius: 15px 15px 0 0;
+}
+
+header h1 {
+    margin-bottom: 8px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #173b7a;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0d2855;
+}
+
+.candidate {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 18px;
+    margin: 15px 0;
+
+    border: 2px solid #ddd;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.candidate:hover {
+    border-color: #173b7a;
+    background: #f4f7fc;
+}
+
+.candidate input {
+    width: 20px;
+    height: 20px;
+}
+
+.candidate h3 {
+    margin-bottom: 5px;
+}
+
+.candidate p {
+    color: #666;
+}
+
+.hidden {
+    display: none;
+}
+
+#loginMessage,
+#voteMessage {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.success {
+    text-align: center;
+    padding: 20px;
+}
+
+.success h2 {
+    color: green;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
