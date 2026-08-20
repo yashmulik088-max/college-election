@@ -1,4 +1,19 @@
-// Candidate vote storage
+// ================================
+// REGISTERED STUDENTS
+// ================================
+
+const registeredStudents = {
+    "2029": "Third Year",
+    "2038": "Third Year",
+    "2026": "Third Year",
+    "2032": "Third Year",
+};
+
+
+// ================================
+// VOTE STORAGE
+// ================================
+
 let votes = JSON.parse(
     localStorage.getItem("collegeVotes")
 ) || {
@@ -8,27 +23,36 @@ let votes = JSON.parse(
 };
 
 
-// Student information
+// ================================
+// CURRENT STUDENT
+// ================================
+
 let currentStudent = {
     rollNo: "",
     year: ""
 };
 
 
-// Verify student
+// ================================
+// VERIFY ROLL NUMBER
+// ================================
+
 function verifyStudent() {
 
     const rollNo =
-        document.getElementById("rollNo").value.trim();
+        document.getElementById("rollNo")
+            .value.trim();
 
-    const year =
-        document.getElementById("year").value;
+    const selectedYear =
+        document.getElementById("year")
+            .value;
 
     const message =
         document.getElementById("loginMessage");
 
 
-    if (rollNo === "" || year === "") {
+    // Empty check
+    if (rollNo === "" || selectedYear === "") {
 
         message.style.color = "red";
 
@@ -39,7 +63,31 @@ function verifyStudent() {
     }
 
 
-    // Check whether this student already voted
+    // Roll number check
+    if (!registeredStudents[rollNo]) {
+
+        message.style.color = "red";
+
+        message.innerText =
+            "❌ Invalid Roll Number. You are not registered.";
+
+        return;
+    }
+
+
+    // Year check
+    if (registeredStudents[rollNo] !== selectedYear) {
+
+        message.style.color = "red";
+
+        message.innerText =
+            "❌ Roll Number does not belong to selected year.";
+
+        return;
+    }
+
+
+    // Check already voted
     const votedStudents =
         JSON.parse(
             localStorage.getItem("votedStudents")
@@ -51,21 +99,24 @@ function verifyStudent() {
         message.style.color = "red";
 
         message.innerText =
-            "This Roll Number has already voted.";
+            "❌ This Roll Number has already voted.";
 
         return;
     }
 
 
+    // Save current student
     currentStudent.rollNo = rollNo;
-    currentStudent.year = year;
+    currentStudent.year = selectedYear;
 
 
+    // Hide verification
     document.getElementById(
         "loginSection"
     ).classList.add("hidden");
 
 
+    // Show election
     document.getElementById(
         "electionSection"
     ).classList.remove("hidden");
@@ -74,12 +125,17 @@ function verifyStudent() {
     document.getElementById(
         "studentInfo"
     ).innerText =
-        "Roll No: " + rollNo +
-        " | Year: " + year;
+        "Roll No: " +
+        rollNo +
+        " | Year: " +
+        selectedYear;
 }
 
 
-// Submit vote
+// ================================
+// SUBMIT VOTE
+// ================================
+
 function submitVote() {
 
     const selectedCandidate =
@@ -107,42 +163,44 @@ function submitVote() {
         selectedCandidate.value;
 
 
-    // Increase vote
+    // Add vote
     votes[candidate]++;
 
 
-    // Save votes
+    // Save vote count
     localStorage.setItem(
         "collegeVotes",
         JSON.stringify(votes)
     );
 
 
-    // Save student as voted
+    // Get voted students
     const votedStudents =
         JSON.parse(
             localStorage.getItem("votedStudents")
         ) || [];
 
 
+    // Add roll number
     votedStudents.push(
         currentStudent.rollNo
     );
 
 
+    // Save voted student
     localStorage.setItem(
         "votedStudents",
         JSON.stringify(votedStudents)
     );
 
 
-    // Hide election page
+    // Hide election
     document.getElementById(
         "electionSection"
     ).classList.add("hidden");
 
 
-    // Show success page
+    // Show success
     document.getElementById(
         "successSection"
     ).classList.remove("hidden");
