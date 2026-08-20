@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Election Admin Results</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>🔐 Election Results</h1>
+
+        <p>Developer / Admin Panel</p>
+
+    </header>
+
+
+    <section class="card">
+
+        <h2>Vote Results</h2>
+
+        <div id="results"></div>
+
+        <button onclick="clearVotes()">
+            Reset Election Data
+        </button>
+
+    </section>
+
+</div>
+
+
+<script>
+
+function displayResults() {
+
+    const votes =
+        JSON.parse(
+            localStorage.getItem("collegeVotes")
+        ) || {
+
+            "Candidate 1": 0,
+            "Candidate 2": 0,
+            "Candidate 3": 0
+        };
+
+
+    let totalVotes = 0;
+
+    Object.values(votes).forEach(
+        vote => totalVotes += vote
+    );
+
+
+    let html = "";
+
+
+    for (const candidate in votes) {
+
+        html += `
+            <div class="candidate">
+
+                <div>
+
+                    <h3>${candidate}</h3>
+
+                    <p>
+                        Votes:
+                        <strong>${votes[candidate]}</strong>
+                    </p>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    html += `
+        <h3 style="text-align:center">
+            Total Votes: ${totalVotes}
+        </h3>
+    `;
+
+
+    document.getElementById(
+        "results"
+    ).innerHTML = html;
+}
+
+
+function clearVotes() {
+
+    const confirmReset =
+        confirm(
+            "Are you sure you want to reset all votes?"
+        );
+
+
+    if (confirmReset) {
+
+        localStorage.removeItem(
+            "collegeVotes"
+        );
+
+        localStorage.removeItem(
+            "votedStudents"
+        );
+
+        displayResults();
+
+        alert(
+            "Election data has been reset."
+        );
+    }
+}
+
+
+displayResults();
+
+</script>
+
+</body>
+
+</html>
