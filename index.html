@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>College Election Voting</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>🏫 College Election 2026</h1>
+            <p>Institute Student Election Voting System</p>
+        </header>
+
+        <!-- Login Section -->
+        <section id="loginSection" class="card">
+
+            <h2>Student Verification</h2>
+
+            <label>Student Roll Number</label>
+
+            <input
+                type="text"
+                id="rollNo"
+                placeholder="Enter Roll Number"
+            >
+
+            <label>Select Year</label>
+
+            <select id="year">
+                <option value="">Select Year</option>
+                <option value="First Year">First Year</option>
+                <option value="Second Year">Second Year</option>
+                <option value="Third Year">Third Year</option>
+                <option value="Final Year">Final Year</option>
+            </select>
+
+            <button onclick="verifyStudent()">
+                Continue
+            </button>
+
+            <p id="loginMessage"></p>
+
+        </section>
+
+
+        <!-- Election Section -->
+        <section id="electionSection" class="card hidden">
+
+            <h2>Election Candidates</h2>
+
+            <p id="studentInfo"></p>
+
+            <div class="candidate">
+
+                <input
+                    type="radio"
+                    name="candidate"
+                    value="Candidate 1"
+                >
+
+                <div>
+                    <h3>Candidate 1</h3>
+                    <p>Student Council Representative</p>
+                </div>
+
+            </div>
+
+
+            <div class="candidate">
+
+                <input
+                    type="radio"
+                    name="candidate"
+                    value="Candidate 2"
+                >
+
+                <div>
+                    <h3>Candidate 2</h3>
+                    <p>Student Council Representative</p>
+                </div>
+
+            </div>
+
+
+            <div class="candidate">
+
+                <input
+                    type="radio"
+                    name="candidate"
+                    value="Candidate 3"
+                >
+
+                <div>
+                    <h3>Candidate 3</h3>
+                    <p>Student Council Representative</p>
+                </div>
+
+            </div>
+
+
+            <button onclick="submitVote()">
+                🗳️ Vote Now
+            </button>
+
+            <p id="voteMessage"></p>
+
+        </section>
+
+
+        <!-- Success Section -->
+        <section id="successSection" class="card hidden">
+
+            <div class="success">
+
+                <h2>✅ Vote Submitted Successfully</h2>
+
+                <p>
+                    Thank you for participating in the
+                    college election.
+                </p>
+
+                <p id="voteDetails"></p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer>
+        <p>College Election Voting System © 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
